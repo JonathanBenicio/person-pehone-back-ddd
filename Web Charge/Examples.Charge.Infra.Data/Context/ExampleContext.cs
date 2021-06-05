@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Examples.Charge.Domain.Aggregates.ExampleAggregate;
+﻿using Examples.Charge.Domain.Aggregates.ExampleAggregate;
 using Examples.Charge.Domain.Aggregates.PersonAggregate;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Examples.Charge.Infra.Data.Context
@@ -17,11 +17,13 @@ namespace Examples.Charge.Infra.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(ExampleContext)));
+
+
         }
 
-        public DbSet<Example> Example { get; set; }
-        public DbSet<Person> Person { get; set; }
-        public DbSet<PersonPhone> PersonPhone { get; set; }
-        public DbSet<PhoneNumberType> PhoneNumberType { get; set; }
+        public DbSet<Example> Examples { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<PersonPhone> PersonPhones { get; set; }
+        public DbSet<PhoneNumberType> PhoneNumberTypes { get; set; }
     }
 }

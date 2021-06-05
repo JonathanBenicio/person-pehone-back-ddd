@@ -3,6 +3,7 @@ using Examples.Charge.Application.Dtos;
 using Examples.Charge.Application.Interfaces;
 using Examples.Charge.Application.Messages.Response;
 using Examples.Charge.Domain.Aggregates.PersonAggregate.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,13 +21,23 @@ namespace Examples.Charge.Application.Facade
             _mapper = mapper;
         }
 
-        public async Task<PersonResponse> FindAllAsync()
+        public async Task<PersonListResponse> FindAllAsync()
         {
-            var result = await _personService.FindAllAsync();
-            var response = new PersonResponse();
-            response.PersonObjects = new List<PersonDto>();
-            response.PersonObjects.AddRange(result.Select(x => _mapper.Map<PersonDto>(x)));
-            return response;
+            try
+            {
+                var result = await _personService.FindAllAsync();
+                var response = new PersonListResponse();
+                List<PersonDto> personObjects = result.Select(x => _mapper.Map<PersonDto>(x)).ToList();
+                response.Data = personObjects;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                var response = new PersonListResponse();
+                response.Success = false;
+                response.Errors = new object[] { ex.Message };
+                return response;
+            }
         }
     }
 }

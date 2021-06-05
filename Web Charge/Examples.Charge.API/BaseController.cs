@@ -20,14 +20,15 @@ namespace Examples.Charge.API
             {
                 return NoContent();
             }
+            else if (response.Success)
+            {
+                return Ok(response);
+            }
             else
             {
-                return Ok(new
-                {
-                    success = true,
-                    data = response
-                });
+                return BadRequest(response);
             }
+
         }
 
         protected new IActionResult Response(int? id = null, object response = null)

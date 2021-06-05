@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Examples.Charge.Domain.Aggregates.PersonAggregate
 {
-    public class PersonPhone
+    public class PersonPhone : Entity, IAggregateRoot
     {
         public int BusinessEntityID { get; set; }
 
